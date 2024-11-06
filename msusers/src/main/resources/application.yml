@@ -2,7 +2,7 @@ spring:
   application:
     name: msusers
   rabbitmq:
-    host: localhost #${RABBITMQ_SERVER}
+    host: ${RABBITMQ_SERVER}
     port: 5672
     username: guest
     password: guest
