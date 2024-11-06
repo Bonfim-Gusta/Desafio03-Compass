@@ -50,7 +50,7 @@ Para garantir a melhor experiência e aproveitamento ao executar a aplicação e
 - Escolha um diretório de sua preferência para clonar o projeto.
 - Para clonar, abra a o diretório em um terminal e aplique o seguinte comando:
 ```
-    repo aqui
+    https://github.com/Bonfim-Gusta/Desafio03-Compass.git
 ```
 - Com o projeto carregado, acesse a pasta 'msusers' e aplique em ordem os seguintes comandos:
 
