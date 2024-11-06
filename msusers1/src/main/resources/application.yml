@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: msusers
+  rabbitmq:
+    host: localhost #${RABBITMQ_SERVER}
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/msusers
+    username: root
+    password: root
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+        ddl-auto: update
+
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key}
+
+mq:
+  queue:
+    emmited-users-operations: emmited-users-operations
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  file:
+    name: .logs/log-file.log
