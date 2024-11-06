@@ -11,7 +11,6 @@ import com.desafio03.msusers.web.dto.mapper.UserMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ public class UserController {
         return ResponseEntity.ok(UserMapper.toDto(user, addressResponse));
     }
 
-    @PatchMapping("/update-password")
+    @PutMapping("/update-password")
     public ResponseEntity<User> updatePassword(@RequestBody UserUpdatePasswordDto dto){
         userService.updatePassword(dto.getOldPassword(), dto.getNewPassword());
         return ResponseEntity.ok().build();

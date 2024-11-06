@@ -1,9 +1,6 @@
 package com.desafio03.msusers.web.handler;
 
-import com.desafio03.msusers.exceptions.CepNotFoundException;
-import com.desafio03.msusers.exceptions.ErrorCreatingTokenException;
-import com.desafio03.msusers.exceptions.IncompativeJsonStructureException;
-import com.desafio03.msusers.exceptions.WrongPasswordToUpdateException;
+import com.desafio03.msusers.exceptions.*;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -62,6 +59,15 @@ public class ExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler(WrongPasswordToUpdateException.class)
     public ResponseEntity<ErrorMessage> wrongPasswordToUpdateException(WrongPasswordToUpdateException e, HttpServletRequest request) {
+        log.error("Api Error - ", e);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(UsernameOrEmailExistsException.class)
+    public ResponseEntity<ErrorMessage> usernameOrEmailExistsException(UsernameOrEmailExistsException e, HttpServletRequest request) {
         log.error("Api Error - ", e);
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)

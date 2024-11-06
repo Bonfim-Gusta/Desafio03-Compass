@@ -3,6 +3,7 @@ package com.desafio03.msusers.services;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.desafio03.msusers.entities.User;
+import com.desafio03.msusers.exceptions.UsernameOrEmailExistsException;
 import com.desafio03.msusers.exceptions.WrongPasswordToUpdateException;
 import com.desafio03.msusers.infra.mqueue.SendNotify;
 import com.desafio03.msusers.infra.repositories.UserRepository;
@@ -12,10 +13,13 @@ import jakarta.servlet.http.HttpServletMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @Service
 @RequiredArgsConstructor
@@ -27,9 +31,13 @@ public class UserService {
 
     @Transactional
     public User saveUser(User user) {
-        userRepository.save(user);
-        sendNotify.sendNotify(new UsernameOperation(user.getUsername(), "CREATE"));
-        return user;
+        try {
+            userRepository.save(user);
+            sendNotify.sendNotify(new UsernameOperation(user.getUsername(), "CREATE"));
+            return user;
+        } catch (DataIntegrityViolationException e){
+            throw new UsernameOrEmailExistsException("Username or email exists");
+        }
     }
 
     @Transactional

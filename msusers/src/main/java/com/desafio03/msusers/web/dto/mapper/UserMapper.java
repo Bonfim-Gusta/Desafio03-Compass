@@ -26,6 +26,7 @@ public class UserMapper {
         return new AddressResponseTranslated(
             dto.getCep(),
                 dto.getLogradouro(),
+                dto.getComplemento(),
                 dto.getBairro(),
                 dto.getLocalidade(),
                 dto.getUf()
