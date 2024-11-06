@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: msnotify
+  rabbitmq:
+    host: ${RABBITMQ_SERVER} #localhost
+    port: 5672
+    username: guest
+    password: guest
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/msnotify
+
+server:
+  port: 8081
+
+mq:
+  queue:
+    emmited-users-operations: emmited-users-operations
+
+
